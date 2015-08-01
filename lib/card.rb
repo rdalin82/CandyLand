@@ -2,7 +2,13 @@ class Card
 	
 	def initialize 
 		@colors = ['pink', 'purple', 'yellow', 'blue', 'orange', 'green']
-		@specials = ["pink candy cane", "pink candy cane", "pink gumdrop", "pink gumdrop"]
+		@specials = []
+		2.times do 
+			@specials.push("pink candy cane")
+			@specials.push("pink candy cane reverse")
+			@specials.push("pink gumdrop")
+			@specials.push("pink gumdrop reverse")
+		end 
 	end 
 
 	def card_color
