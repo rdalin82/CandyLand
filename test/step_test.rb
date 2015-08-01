@@ -19,5 +19,6 @@ describe Step do
 		    assert @step.colors.include?(@step.step_color)  
 		end 
 
+
 	end 
 end  
