@@ -12,5 +12,11 @@ describe CandyLand do
 		end 
 	end 
 
+	describe "when th egame is created there should be 100 steps" do 
+		it "should have 100 steps" do 
+			assert_equal @game.steps.count, 100
+		end 
+	end 
+
 
 end 
