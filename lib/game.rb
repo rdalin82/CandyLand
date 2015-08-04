@@ -16,15 +16,16 @@ class CandyLand
 		card_number.times do |x|
 			@cards << card.card_color
 		end 
-		@cards.shuffle
+		@cards.shuffle!(random: Random.new(card_number))
 	end 
 
 	def create_steps(step_number=100)
 		step_number.times do |x|
 			@steps << Step.new.step_color
 		end 
+		@steps.shuffle!(random: Random.new(step_number))
 	end 
-	
+
 	def setup 
 		create_cards
 		create_steps

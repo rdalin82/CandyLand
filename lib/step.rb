@@ -1,7 +1,7 @@
 class Step
 	attr_reader :colors 
 	def initialize
-		@colors = ['pink', 'purple', 'yellow', 'blue', 'orange', 'green']
+		@colors = ['pink gumdrop', "pink candy cane", 'purple', 'yellow', 'blue', 'orange', 'green']
 	end 
 
 	def step_color
