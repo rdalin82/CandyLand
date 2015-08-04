@@ -6,8 +6,11 @@ class CandyLand
 	def initialize
 	  @cards = []
 		@steps = []
-		100.times { |x| @steps << Step.new.step_color }
+		setup
 	end 
+
+
+	private
 
 	def create_cards(card_number=64, card = Card.new)
 		card_number.times do |x|
@@ -17,6 +20,13 @@ class CandyLand
 	end 
 
 	def create_steps(step_number=100)
+		step_number.times do |x|
+			@steps << Step.new.step_color
+		end 
 	end 
-
+	
+	def setup 
+		create_cards
+		create_steps
+	end 
 end 

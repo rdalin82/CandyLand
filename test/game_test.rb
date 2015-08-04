@@ -4,7 +4,7 @@ require_relative '../lib/game'
 describe CandyLand do 
 	before do 
 		@game = CandyLand.new
-		@game.create_cards
+
 	end 
 
 	describe "when the game is created it creates 64 cards" do 
