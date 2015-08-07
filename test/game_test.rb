@@ -50,24 +50,19 @@ describe CandyLand do
 		end 
 	end
 
-	describe "when game is create it should have 5 sticky cards" do 
-		it "should have 5 sticky cards" do 
-			count = @game.cards.select {|x| x.special == "sticky"}
-			assert_equal count.count, 5
-		end
-	end 
+
 	describe "Step should have EITHER candy cane or gumdrop label not both" do 
 		it "should have candy cane" do 
 			@game.steps.each do |x|
-				if x.match("pink candy cane")
-					assert_equal x, "pink candy cane"
+				if x.color.match("pink")
+					assert_equal x.special, "candy cane"
 				end
 			end  
 		end 
 		it "should have gumdrop" do 
 			@game.steps.each do |y|
-				if y.match("pink gumdrop")
-					assert_equal y, "pink gumdrop"
+				if y.color.match("pink")
+					assert_equal y.special, "pink gumdrop"
 				end 
 			end 
 		end 
