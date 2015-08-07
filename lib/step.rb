@@ -3,7 +3,7 @@ class Step
 	attr_reader :colors 
 	def initialize
 		@colors = ['pink', 'purple', 'yellow', 'blue', 'orange', 'green']
-		@special = ['gumpdrop', 'candy cane']
+		@special = ['gumdrop', 'candy cane']
 		@sticky = {}
 		@colors.each do |color|
 			@sticky[color] = "sticky"

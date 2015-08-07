@@ -51,21 +51,5 @@ describe CandyLand do
 	end
 
 
-	describe "Step should have EITHER candy cane or gumdrop label not both" do 
-		it "should have candy cane" do 
-			@game.steps.each do |x|
-				if x.color.match("pink")
-					assert_equal x.special, "candy cane"
-				end
-			end  
-		end 
-		it "should have gumdrop" do 
-			@game.steps.each do |y|
-				if y.color.match("pink")
-					assert_equal y.special, "pink gumdrop"
-				end 
-			end 
-		end 
-	end 
 
 end 
