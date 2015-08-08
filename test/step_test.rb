@@ -14,12 +14,6 @@ describe Step do
 		it "should have a step color" do 
 			assert_respond_to @step, :step_color
 		end 
-
-		it "step color should return a color" do 
-		    assert @step.colors.include?(@step.step_color)  
-		end 
-
-
 	end
 	
 

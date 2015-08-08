@@ -50,6 +50,32 @@ describe CandyLand do
 		end 
 	end
 
+	describe "Given the game is started" do
+		it "should respond to the move method" do 
+			assert_respond_to @game, :move 
+		end 
+		it "should draw a card and move the player to the next step" do 
+			player1 = Player.new(0)
+			@game.move(player1)
+			refute_equal player1.location, 0
+		end 
+		it "should reduce card size when game moves player" do 
+			player1 = Player.new(0)
+			@game.move(player1)
+			refute_equal @game.cards.count, 64
+		end 
+		it "should raise empty cards if there are no cards" do 
+			skip
+		end 
+		it "should notify the player if he won" do 
+			skip
+		end 
+		it "should respond to reverse" do 
+			skip
+		end 
+		it "should respond to sticky" do 
+			skip 
+		end 
 
-
+	end 
 end 

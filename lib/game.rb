@@ -1,6 +1,7 @@
 require_relative './card'
 require_relative './step'
 
+Player = Struct.new(:location, :name, :step)
 class CandyLand 
 	attr_reader :cards, :steps
 	def initialize
@@ -8,10 +9,26 @@ class CandyLand
 		@steps = []
 		setup
 	end 
-
-
+	def move(player)
+		card = @cards.pop
+		#puts "card is #{card}"
+		#puts "Player current location is #{player.location}"
+		for i in (player.location+1...@steps.count)
+			if @steps[i].color == card.color
+				player.location = i
+				player.step = @steps[i]
+				if player.location == 99
+					puts "#{player.name} has won"
+				end
+				break
+			end 
+		end 
+		#puts "player location now is #{player.location}"
+		#puts "on step #{player.step}"
+		#puts ""
+	end
+	
 	private
-
 	def create_cards(card_number=64, card = Card.new)
 		card_number.times do
 			@cards << card.card_color
@@ -25,6 +42,7 @@ class CandyLand
 		end 
 		@steps.shuffle!(random: Random.new(step_number))
 	end 
+
 
 	def setup 
 		create_cards
