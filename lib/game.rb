@@ -1,31 +1,36 @@
 require_relative './card'
 require_relative './step'
 
-Player = Struct.new(:location, :name, :step)
+Player = Struct.new(:location, :name, :step, :stuck)
 class CandyLand 
-	attr_reader :cards, :steps
+	attr_reader :cards, :steps, :turn
 	def initialize
 	  @cards = []
 		@steps = []
+		@turn = 0
 		setup
 	end 
 	def move(player)
-		card = @cards.pop
-		#puts "card is #{card}"
-		#puts "Player current location is #{player.location}"
-		for i in (player.location+1...@steps.count)
-			if @steps[i].color == card.color
-				player.location = i
-				player.step = @steps[i]
-				if player.location == 99
-					puts "#{player.name} has won"
-				end
-				break
+		@turn += 1
+	  if player_stuck?(player)
+	  	false
+	  else 
+			card = @cards.pop
+
+			for i in (player.location+1...@steps.count)
+				if @steps[i].color == card.color
+					player.location = i
+					player.step = @steps[i]
+					if stuck?(@steps[i])
+						player.stuck = true
+					end 
+					if won?(player)
+						puts "#{player.name} has won in #{turn} turns"
+					end
+					break				
+				end 
 			end 
 		end 
-		#puts "player location now is #{player.location}"
-		#puts "on step #{player.step}"
-		#puts ""
 	end
 	
 	private
@@ -43,9 +48,31 @@ class CandyLand
 		@steps.shuffle!(random: Random.new(step_number))
 	end 
 
-
 	def setup 
 		create_cards
 		create_steps
+	end 
+	def player_stuck?(player)
+		if player.stuck == true
+			player.stuck = false 
+			true
+		else 
+			false 
+		end 
+	end 
+
+	def stuck?(step)
+		if step.special == "sticky"
+			true 
+		else 
+			false
+		end 
+	end 
+	def won?(player)
+		if player.location >= 99
+			true 
+		else 
+			false 
+		end 
 	end 
 end 
