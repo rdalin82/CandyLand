@@ -1,7 +1,9 @@
 require_relative './card'
 require_relative './step'
 
-Player = Struct.new(:location, :name, :step, :stuck)
+class Player < Struct.new(:location, :move, :step)
+	def initialize(location, move="normal", step=nil); super end 
+end 
 class CandyLand 
 	attr_reader :cards, :steps, :turn
 	def initialize
@@ -12,26 +14,40 @@ class CandyLand
 	end 
 	def move(player)
 		@turn += 1
-	  if player_stuck?(player)
-	  	false
-	  else 
-			card = @cards.pop
-
-			for i in (player.location+1...@steps.count)
-				if @steps[i].color == card.color
-					player.location = i
-					player.step = @steps[i]
-					if stuck?(@steps[i])
-						player.stuck = true
-					end 
-					if won?(player)
-						puts "#{player.name} has won in #{turn} turns"
-					end
-					break				
-				end 
+		public_send("#{player.move}_move".to_sym, player)
+	rescue NoMethodError
+		puts "no method"
+		normal_move(player)
+	end 
+		 
+	def normal_move(player)
+		card = @cards.pop
+		for i in (player.location+1...@steps.count)
+			if @steps[i].color == card.color
+				player.location = i
+				player.step = @steps[i]
+				break	
 			end 
 		end 
 	end
+
+	def stuck_move(player)
+		player.move = "normal"
+	end 
+
+	def reverse_move(player)
+		card = @cards.pop
+		reverse = player.location.downto(0)
+		for i in reverse 
+			if @steps[i].color == card.color
+				player.location = i
+				player.step = @steps[i]
+				break	
+			end 
+		end 
+	end 
+
+
 	
 	private
 	def create_cards(card_number=64, card = Card.new)
@@ -52,27 +68,5 @@ class CandyLand
 		create_cards
 		create_steps
 	end 
-	def player_stuck?(player)
-		if player.stuck == true
-			player.stuck = false 
-			true
-		else 
-			false 
-		end 
-	end 
 
-	def stuck?(step)
-		if step.special == "sticky"
-			true 
-		else 
-			false
-		end 
-	end 
-	def won?(player)
-		if player.location >= 99
-			true 
-		else 
-			false 
-		end 
-	end 
 end 

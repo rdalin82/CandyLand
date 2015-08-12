@@ -71,11 +71,24 @@ describe CandyLand do
 			skip
 		end 
 		it "should respond to reverse" do 
-			skip
+			player = Player.new(12)
+			player.move = "reverse" 
+			current_location = player.location
+			@game.move(player)
+			assert_operator current_location, :>,  player.location
 		end 
 		it "should respond to sticky" do 
-			skip 
+			player = Player.new(12)
+			player.move = "stuck" 
+			current_location = player.location
+			@game.move(player)
+			assert_equal current_location, player.location
 		end 
-
+		it "stuck move should unstick player" do 
+			player = Player.new(12)
+			player.move = "stuck" 
+			@game.move(player)
+			refute_equal player.move, "stuck" 
+		end 
 	end 
 end 
