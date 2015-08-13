@@ -83,7 +83,8 @@ describe CandyLand do
 			player.move = "stuck" 
 			current_location = player.location
 			@game.move(player)
-			assert_equal current_location, player.location
+			assert_equal 12, player.location
+			assert_equal 1, @game.turn
 		end 
 		it "stuck move should unstick player" do 
 			player = Player.new(12)

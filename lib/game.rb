@@ -17,6 +17,11 @@ class CandyLand
 		player = Player.new(0)
 		until won(player)
 			move(player)
+			puts player.location
+			puts player.step.special
+			puts player.step.color
+			puts "turn #{@turn}"
+			puts "" 
 		end 
 	end 
 	def move(player)
@@ -38,6 +43,8 @@ class CandyLand
 				break	
 			end 
 		end 
+		player.move = "stuck" if player.step.special == "sticky" 
+		
 	end
 
 	def stuck_move(player)
