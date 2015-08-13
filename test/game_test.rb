@@ -64,18 +64,19 @@ describe CandyLand do
 			@game.move(player1)
 			refute_equal @game.cards.count, 64
 		end 
-		it "should raise empty cards if there are no cards" do 
-			skip
-		end 
-		it "should notify the player if he won" do 
-			skip
-		end 
 		it "should respond to reverse" do 
 			player = Player.new(12)
 			player.move = "reverse" 
 			current_location = player.location
 			@game.move(player)
 			assert_operator current_location, :>,  player.location
+		end 
+
+		it "should unreverse a player" do 
+			player = Player.new(12)
+			player.move = "reverse" 
+			@game.move(player)
+			refute_equal player.move, "reverse" 
 		end 
 		it "should respond to sticky" do 
 			player = Player.new(12)
@@ -89,6 +90,19 @@ describe CandyLand do
 			player.move = "stuck" 
 			@game.move(player)
 			refute_equal player.move, "stuck" 
+		end 
+	end 
+	describe 'it should know if a player won' do
+		it 'should identify a won player' do 
+			player = Player.new(99)
+			result = @game.won(player)
+			assert_equal true, result 
+		end 
+
+		it "should identify a non won player" do 
+			player = Player.new(98)
+			result = @game.won(player)
+			refute_equal true, result 
 		end 
 	end 
 end 

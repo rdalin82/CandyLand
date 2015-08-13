@@ -12,12 +12,21 @@ class CandyLand
 		@turn = 0
 		setup
 	end 
+
+	def start
+		player = Player.new(0)
+		until won(player)
+			move(player)
+		end 
+	end 
 	def move(player)
 		@turn += 1
 		public_send("#{player.move}_move".to_sym, player)
 	rescue NoMethodError
 		puts "no method"
 		normal_move(player)
+	ensure 
+		puts "player won in #{turn} turns" if won(player) 
 	end 
 		 
 	def normal_move(player)
@@ -37,17 +46,19 @@ class CandyLand
 
 	def reverse_move(player)
 		card = @cards.pop
-		reverse = player.location.downto(0)
-		for i in reverse 
+		for i in (player.location-1).downto(0) 
 			if @steps[i].color == card.color
 				player.location = i
 				player.step = @steps[i]
 				break	
 			end 
 		end 
+		player.move = "normal" 
 	end 
 
-
+	def won(player)
+		player.location == 99
+	end 
 	
 	private
 	def create_cards(card_number=64, card = Card.new)
